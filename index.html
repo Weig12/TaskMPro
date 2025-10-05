@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#2563eb" id="meta-theme-color" />
+  <title>TaskMPro - Task Manager</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>TaskMPro</h1>
+    <p class="tagline">Enhanced task manager (Add • Complete • Delete • Filter • Search • Reorder)</p>
+    <div class="top-utils">
+      <button id="theme-toggle" class="secondary" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <button id="export-btn" class="secondary" aria-label="Export tasks" title="Download tasks as JSON">Export</button>
+      <button id="import-btn" class="secondary" aria-label="Import tasks" title="Import tasks from JSON">Import<input type="file" id="import-file" accept="application/json" hidden></button>
+    </div>
+  </header>
+
+  <main>
+    <section aria-labelledby="add-task-heading" class="add-task-section">
+      <h2 id="add-task-heading" class="visually-hidden">Add a task</h2>
+      <form id="task-form" autocomplete="off" novalidate>
+        <label for="task-input" class="visually-hidden">Task description</label>
+        <input id="task-input" name="task" type="text" placeholder="What do you need to do?" maxlength="120" required aria-required="true" />
+        <label for="due-input" class="visually-hidden">Due date (optional)</label>
+        <input id="due-input" name="due" type="date" aria-label="Due date (optional)" />
+        <button type="submit" id="add-btn" aria-label="Add task">Add</button>
+      </form>
+      <p id="form-message" role="status" aria-live="polite" class="message"></p>
+    </section>
+
+    <section class="controls" aria-label="Task controls">
+      <div class="filters" role="group" aria-label="Filter tasks">
+        <button type="button" class="filter-btn active" data-filter="all">All</button>
+        <button type="button" class="filter-btn" data-filter="active">Active</button>
+        <button type="button" class="filter-btn" data-filter="completed">Completed</button>
+      </div>
+      <div class="search-wrap">
+        <label for="search" class="visually-hidden">Search tasks</label>
+        <input type="search" id="search" placeholder="Search tasks..." aria-label="Search tasks" />
+      </div>
+      <div class="sort-wrap">
+        <label for="sort" class="visually-hidden">Sort tasks</label>
+        <select id="sort" aria-label="Sort tasks">
+          <option value="manual">Manual Order</option>
+          <option value="due">Due Date</option>
+          <option value="created" selected>Created (Newest)</option>
+          <option value="completed">Completion Status</option>
+        </select>
+      </div>
+    </section>
+
+    <section aria-labelledby="tasks-heading" class="tasks-section">
+      <div class="tasks-header">
+        <h2 id="tasks-heading">Tasks</h2>
+        <div class="tasks-actions">
+          <button id="clear-completed" class="secondary" aria-label="Clear completed tasks" title="Remove all completed tasks">Clear Completed</button>
+        </div>
+      </div>
+      <ul id="task-list" class="task-list" aria-live="polite" aria-label="Task list">
+        <!-- Tasks injected here -->
+      </ul>
+      <div class="empty-state" id="empty-state">No tasks yet. Add your first one above.</div>
+    </section>
+
+    <section aria-label="Statistics" class="stats-section">
+      <div id="stats" class="stats" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>
+      <span id="task-count" aria-live="polite">0 tasks</span> • Data stored locally • <span id="streak" aria-live="polite"></span>
+    </small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
